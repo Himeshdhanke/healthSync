@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="hospital.controller.ManagePatientsController"
+            prefWidth="900" prefHeight="600"
+            style="-fx-background-color: #f7f9fb;">
+
+    <!-- Top Bar -->
+    <top>
+        <HBox spacing="20" alignment="CENTER_LEFT" style="-fx-background-color: #3c6e71;">
+            <padding>
+                <Insets top="10" right="20" bottom="10" left="20"/>
+            </padding>
+            <Button text="← Back" onAction="#goBack"
+                    style="-fx-background-color: white; -fx-text-fill: #3c6e71; -fx-font-weight: bold;"/>
+            <Label text="Manage Patients"
+                   style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+        </HBox>
+    </top>
+
+    <!-- Center Content -->
+    <center>
+        <VBox spacing="20">
+            <padding>
+                <Insets top="10" right="20" bottom="10" left="20"/>
+            </padding>
+
+            <!-- GridPane for Form Fields -->
+            <GridPane hgap="15" vgap="15">
+                <padding>
+                    <Insets top="0" right="0" bottom="0" left="0"/>
+                </padding>
+
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="25"/>
+                    <ColumnConstraints percentWidth="75"/>
+                </columnConstraints>
+
+                <Label text="Name:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtName" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Age:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtAge" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Gender:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtGender" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <Label text="Contact:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtContact" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                <Label text="DOB:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <DatePicker fx:id="txtDOB" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+            </GridPane>
+
+            <!-- Buttons -->
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <padding>
+                    <Insets top="0" right="0" bottom="0" left="0"/>
+                </padding>
+                <Button text="Add" onAction="#handleAdd" style="-fx-background-color: #3c6e71; -fx-text-fill: white;"/>
+                <Button text="Edit" onAction="#handleEdit" style="-fx-background-color: #3c6e71; -fx-text-fill: white;"/>
+                <Button text="Update" onAction="#handleUpdate" style="-fx-background-color: #3c6e71; -fx-text-fill: white;"/>
+                <Button text="Delete" onAction="#handleDelete" style="-fx-background-color: #d62828; -fx-text-fill: white;"/>
+                <Button text="Refresh" onAction="#loadPatients" style="-fx-background-color: #3c6e71; -fx-text-fill: white;"/>
+            </HBox>
+
+            <!-- TableView -->
+            <TableView fx:id="patientTable" prefHeight="300">
+                <padding>
+                    <Insets top="0" right="0" bottom="0" left="0"/>
+                </padding>
+                <columns>
+                    <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+                    <TableColumn fx:id="colName" text="Name" prefWidth="150"/>
+                    <TableColumn fx:id="colAge" text="Age" prefWidth="80"/>
+                    <TableColumn fx:id="colGender" text="Gender" prefWidth="100"/>
+                    <TableColumn fx:id="colMobNo" text="Contact" prefWidth="120"/>
+                    <TableColumn fx:id="colDOB" text="DOB" prefWidth="100"/>
+                </columns>
+            </TableView>
+
+        </VBox>
+    </center>
+</BorderPane>
