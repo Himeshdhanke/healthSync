@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="hospital.controller.AssignRoomController"
+            prefWidth="1000" prefHeight="650"
+            style="-fx-background-color: #f7f9fb;">
+
+    <!-- Top Bar -->
+    <top>
+        <HBox spacing="20" alignment="CENTER_LEFT" style="-fx-background-color: #1976d2;">
+            <padding><Insets top="10" right="20" bottom="10" left="20"/></padding>
+            <Button text="← Back" onAction="#goBack"
+                    style="-fx-background-color: white; -fx-text-fill: #1976d2; -fx-font-weight: bold;"/>
+            <Label text="Assign Rooms"
+                   style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+        </HBox>
+    </top>
+
+    <!-- Center Content -->
+    <center>
+        <VBox spacing="25" alignment="TOP_CENTER">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+            <HBox spacing="40" alignment="CENTER">
+
+                <!-- Rooms Table -->
+                <VBox spacing="10">
+                    <Label text="Available Rooms" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                    <TableView fx:id="roomTable" prefWidth="450" prefHeight="400">
+                        <columns>
+                            <TableColumn fx:id="colRoomId" text="Room ID" prefWidth="100"/>
+                            <TableColumn fx:id="colType" text="Type" prefWidth="120"/>
+                            <TableColumn fx:id="colCapacity" text="Capacity" prefWidth="100"/>
+                            <TableColumn fx:id="colAvailability" text="Availability" prefWidth="120"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+
+                <!-- Patients Table -->
+                <VBox spacing="10">
+                    <Label text="Patients" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+                    <TableView fx:id="patientTable" prefWidth="450" prefHeight="400">
+                        <columns>
+                            <TableColumn fx:id="colPatientId" text="Patient ID" prefWidth="100"/>
+                            <TableColumn fx:id="colName" text="Name" prefWidth="180"/>
+                            <TableColumn fx:id="colAge" text="Age" prefWidth="80"/>
+                            <TableColumn fx:id="colGender" text="Gender" prefWidth="80"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </HBox>
+
+            <Button text="Assign Selected Room to Selected Patient"
+                    fx:id="btnAssign" onAction="#handleAssign"
+                    style="-fx-background-color: #1976d2; -fx-text-fill: white; -fx-font-size: 15px; -fx-padding: 8 20 8 20;"/>
+        </VBox>
+    </center>
+</BorderPane>

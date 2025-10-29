@@ -1,73 +1,72 @@
 package hospital.controller;
 
-import hospital.model.TestReport;
-import hospital.model.User;
 import hospital.util.DBConnection;
+import hospital.model.User;
 import hospital.util.SceneUtil;
 import hospital.util.Session;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.scene.Node;
+import hospital.model.Bill;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 import java.sql.*;
 
-public class ViewReportsController {
+public class ViewBillsController {
 
-    @FXML private TableView<TestReport> reportTable;
-    @FXML private TableColumn<TestReport, Integer> colReportId;
-    @FXML private TableColumn<TestReport, String> colPatientName;
-    @FXML private TableColumn<TestReport, String> colTestType;
-    @FXML private TableColumn<TestReport, String> colResult;
-    @FXML private TableColumn<TestReport, String> colReportDate;
-    @FXML private TableColumn<TestReport, String> colStatus;
+    @FXML private TableView<Bill> billTable;
+    @FXML private TableColumn<Bill, Integer> colBillId;
+    @FXML private TableColumn<Bill, Integer> colPatientId;
+    @FXML private TableColumn<Bill, String> colPatientName;
+    @FXML private TableColumn<Bill, String> colBillDate;
+    @FXML private TableColumn<Bill, Double> colAmount;
+    @FXML private TableColumn<Bill, String> colStatus;
 
-    private final ObservableList<TestReport> reportList = FXCollections.observableArrayList();
+    private final ObservableList<Bill> billList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
         setupTable();
-        loadReports();
+        loadBills();
     }
 
     private void setupTable() {
-        colReportId.setCellValueFactory(new PropertyValueFactory<>("reportId"));
+        colBillId.setCellValueFactory(new PropertyValueFactory<>("billId"));
+        colPatientId.setCellValueFactory(new PropertyValueFactory<>("patientId"));
         colPatientName.setCellValueFactory(new PropertyValueFactory<>("patientName"));
-        colTestType.setCellValueFactory(new PropertyValueFactory<>("testType"));
-        colResult.setCellValueFactory(new PropertyValueFactory<>("result"));
-        colReportDate.setCellValueFactory(new PropertyValueFactory<>("reportDate"));
+        colBillDate.setCellValueFactory(new PropertyValueFactory<>("billDate"));
+        colAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
     }
 
-    private void loadReports() {
-        reportList.clear();
-        String sql = "SELECT R_ID, P_ID, Patient_Name, Test_Type, Result, Report_Date, Status FROM TestReport";
+    private void loadBills() {
+        billList.clear();
+        String sql = "SELECT B_ID, P_ID, Patient_Name, Amount, Bill_Date, Status FROM Bills";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
-                TestReport report = new TestReport(
-                        rs.getInt("R_ID"),
+                Bill bill = new Bill(
+                        rs.getInt("B_ID"),
                         rs.getInt("P_ID"),
                         rs.getString("Patient_Name"),
-                        rs.getString("Test_Type"),
-                        rs.getString("Result"),
-                        rs.getDate("Report_Date").toLocalDate(),
+                        rs.getDouble("Amount"),
+                        rs.getDate("Bill_Date").toString(),
                         rs.getString("Status")
                 );
-                reportList.add(report);
+                billList.add(bill);
             }
 
-            reportTable.setItems(reportList);
+            billTable.setItems(billList);
 
         } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, "Error loading reports: " + e.getMessage()).showAndWait();
+            new Alert(Alert.AlertType.ERROR, "Error loading bills: " + e.getMessage()).showAndWait();
         }
     }
 

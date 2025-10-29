@@ -5,10 +5,11 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="hospital.controller.ViewReportsController"
+            fx:controller="hospital.controller.ViewBillsController"
             prefWidth="900" prefHeight="600"
             style="-fx-background-color: #f7f9fb;">
 
+    <!-- Top bar -->
     <top>
         <HBox spacing="20" alignment="CENTER_LEFT" style="-fx-background-color: #1976d2;">
             <padding>
@@ -16,24 +17,25 @@
             </padding>
             <Button text="← Back" onAction="#goBack"
                     style="-fx-background-color: white; -fx-text-fill: #1976d2; -fx-font-weight: bold;"/>
-            <Label text="View Reports"
+            <Label text="View Bills"
                    style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;"/>
         </HBox>
     </top>
 
+    <!-- Center content -->
     <center>
         <VBox spacing="20" alignment="TOP_CENTER">
             <padding>
                 <Insets top="20" right="20" bottom="20" left="20"/>
             </padding>
 
-            <TableView fx:id="reportTable" prefHeight="500" prefWidth="850">
+            <TableView fx:id="billTable" prefHeight="500" prefWidth="850">
                 <columns>
-                    <TableColumn fx:id="colReportId" text="Report ID" prefWidth="100"/>
+                    <TableColumn fx:id="colBillId" text="Bill ID" prefWidth="100"/>
+                    <TableColumn fx:id="colPatientId" text="Patient ID" prefWidth="100"/>
                     <TableColumn fx:id="colPatientName" text="Patient Name" prefWidth="200"/>
-                    <TableColumn fx:id="colReportDate" text="Date" prefWidth="150"/>
-                    <TableColumn fx:id="colResult" text="Doctor" prefWidth="150"/>
-                    <TableColumn fx:id="colTestType" text="Report Type" prefWidth="150"/>
+                    <TableColumn fx:id="colAmount" text="Amount" prefWidth="100"/>
+                    <TableColumn fx:id="colBillDate" text="Bill Date" prefWidth="150"/>
                     <TableColumn fx:id="colStatus" text="Status" prefWidth="100"/>
                 </columns>
             </TableView>

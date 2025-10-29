@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="hospital.controller.ManageRoomsController"
+            prefWidth="900" prefHeight="600"
+            style="-fx-background-color: #f7f9fb;">
+
+    <!-- Top Bar -->
+    <top>
+        <HBox spacing="20" alignment="CENTER_LEFT" style="-fx-background-color: #3c6e71;">
+            <padding>
+                <Insets top="10" right="20" bottom="10" left="20"/>
+            </padding>
+            <Button text="← Back" onAction="#goBack"
+                    style="-fx-background-color: white; -fx-text-fill: #3c6e71; -fx-font-weight: bold;"/>
+            <Label text="Manage Rooms"
+                   style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="15">
+            <padding>
+                <Insets top="10" right="20" bottom="10" left="20"/>
+            </padding>
+
+            <GridPane hgap="15" vgap="15">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="25"/>
+                    <ColumnConstraints percentWidth="75"/>
+                </columnConstraints>
+
+                <Label text="Room Type:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtType" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Capacity:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtCapacity" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Availability:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="cmbAvailability" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+            </GridPane>
+
+            <HBox spacing="15">
+                <Button text="Add" onAction="#handleAdd" style="-fx-background-color: #3c6e71; -fx-text-fill: white;"/>
+                <Button text="Update" onAction="#handleUpdate" style="-fx-background-color: #3c6e71; -fx-text-fill: white;"/>
+                <Button text="Delete" onAction="#handleDelete" style="-fx-background-color: #d62828; -fx-text-fill: white;"/>
+                <Button text="Refresh" onAction="#loadRooms" style="-fx-background-color: #3c6e71; -fx-text-fill: white;"/>
+            </HBox>
+
+            <TableView fx:id="roomTable" prefHeight="300" onMouseClicked="#handleTableClick">
+                <columns>
+                    <TableColumn fx:id="colRId" text="ID" prefWidth="50"/>
+                    <TableColumn fx:id="colType" text="Type" prefWidth="150"/>
+                    <TableColumn fx:id="colCapacity" text="Capacity" prefWidth="100"/>
+                    <TableColumn fx:id="colAvailability" text="Availability" prefWidth="150"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+</BorderPane>

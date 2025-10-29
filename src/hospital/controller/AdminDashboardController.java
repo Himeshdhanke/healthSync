@@ -11,10 +11,11 @@ public class AdminDashboardController {
     @FXML private Button btnManagePatients;
     @FXML private Button btnManageEmployees;
     @FXML private Button btnManageRooms;
+    @FXML private Button btnViewBills;
+    @FXML private Button btnViewReports;
 
     @FXML
     private void handleManagePatients() {
-        // Get the current stage from any node in the scene
         Stage stage = (Stage) btnManagePatients.getScene().getWindow();
         SceneUtil.switchScene(stage, "ManagePatients.fxml", "Manage Patients");
     }
@@ -29,6 +30,18 @@ public class AdminDashboardController {
     private void handleManageRooms() {
         Stage stage = (Stage) btnManageRooms.getScene().getWindow();
         SceneUtil.switchScene(stage, "ManageRooms.fxml", "Manage Rooms");
+    }
+
+    @FXML
+    private void handleViewBills() {
+        Stage stage = (Stage) btnViewBills.getScene().getWindow();
+        SceneUtil.switchScene(stage, "ViewBills.fxml", "View Bills");
+    }
+
+    @FXML
+    private void handleViewReports() {
+        Stage stage = (Stage) btnViewReports.getScene().getWindow();
+        SceneUtil.switchScene(stage, "ViewReports.fxml", "View Reports");
     }
 
     @FXML

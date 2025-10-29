@@ -2,18 +2,22 @@ package hospital.controller;
 
 import hospital.dao.PatientDAO;
 import hospital.model.Patient;
+import hospital.model.User;
 import hospital.util.AlertUtil;
 import hospital.util.SceneUtil;
+import hospital.util.Session;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
-import javafx.stage.Stage;
 
 public class ManagePatientsController {
 
@@ -31,12 +35,12 @@ public class ManagePatientsController {
     @FXML private DatePicker txtDOB;
     @FXML private TextField txtContact;
 
-    private PatientDAO patientDAO = new PatientDAO();
+    private final PatientDAO patientDAO = new PatientDAO();
 
     @FXML
     public void initialize() {
-        // Setup table columns using PropertyValueFactory
-        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        // ✅ Setup table columns correctly
+        colId.setCellValueFactory(new PropertyValueFactory<>("pId"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colAge.setCellValueFactory(new PropertyValueFactory<>("age"));
         colGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
@@ -116,7 +120,6 @@ public class ManagePatientsController {
 
     @FXML
     public void handleEdit() {
-        // Load selected patient data into form fields
         Patient selected = patientTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
             txtName.setText(selected.getName());
@@ -129,8 +132,6 @@ public class ManagePatientsController {
         }
     }
 
-
-
     @FXML
     public void handleUpdate() {
         Patient selected = patientTable.getSelectionModel().getSelectedItem();
@@ -139,7 +140,7 @@ public class ManagePatientsController {
             return;
         }
 
-        // Read and validate input fields
+        // Validate input
         String name = txtName.getText().trim();
         String ageText = txtAge.getText().trim();
         String gender = txtGender.getText().trim();
@@ -159,19 +160,18 @@ public class ManagePatientsController {
             return;
         }
 
-        // Set updated values
+        // Update fields
         selected.setName(name);
         selected.setAge(age);
         selected.setGender(gender);
         selected.setDob(dob);
         selected.setMobNo(mobNo);
 
-        // Update in DB
         try {
             if (patientDAO.updatePatient(selected)) {
                 AlertUtil.showInfo("Success", "Patient updated successfully!");
-                loadPatients();  // Refresh table
-                clearFields();   // Clear form
+                loadPatients();
+                clearFields();
             } else {
                 AlertUtil.showError("Error", "Failed to update patient!");
             }
@@ -180,7 +180,6 @@ public class ManagePatientsController {
         }
     }
 
-
     @FXML
     public void handleDelete() {
         Patient selected = patientTable.getSelectionModel().getSelectedItem();
@@ -188,7 +187,8 @@ public class ManagePatientsController {
             boolean confirmed = AlertUtil.showConfirmation("Confirm Delete", "Are you sure you want to delete this patient?");
             if (confirmed) {
                 try {
-                    if (patientDAO.deletePatient(selected.getId())) {
+                    // ✅ FIXED: use getPId() instead of getId()
+                    if (patientDAO.deletePatient(selected.getPId())) {
                         AlertUtil.showInfo("Deleted", "Patient deleted successfully!");
                         loadPatients();
                         clearFields();
@@ -205,14 +205,25 @@ public class ManagePatientsController {
     }
 
     @FXML
-    public void goBack() {
-        // Navigate back to Admin Dashboard
-        try {
-            Stage stage = (Stage) patientTable.getScene().getWindow();
-            SceneUtil.switchScene(stage, "/AdminDashboard.fxml","Admin DashBoard");
-        } catch (Exception e) {
-            e.printStackTrace();
-            AlertUtil.showError("Navigation Error", "Cannot go back: " + e.getMessage());
+    private void goBack(ActionEvent event) {
+        User loggedInUser = Session.getLoggedInUser();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        if (loggedInUser == null) {
+            // Not logged in → send back to Login
+            SceneUtil.switchScene(stage, "Login.fxml", "Login");
+            return;
+        }
+
+        String role = loggedInUser.getRole();
+
+        if ("Administrator".equalsIgnoreCase(role)) {
+            SceneUtil.switchScene(stage, "AdminDashboard.fxml", "Admin Dashboard");
+        } else if ("Receptionist".equalsIgnoreCase(role)) {
+            SceneUtil.switchScene(stage, "ReceptionistDashboard.fxml", "Receptionist Dashboard");
+        } else {
+            // Unknown role fallback
+            SceneUtil.switchScene(stage, "Login.fxml", "Login");
         }
     }
 

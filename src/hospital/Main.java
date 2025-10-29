@@ -12,11 +12,20 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         try {
             System.out.println(getClass().getResource("/hospital/view/ManageDoctors.fxml")); // Check if file is found
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/hospital/view/ManageDoctors.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/hospital/view/Login.fxml"));
             Parent root = loader.load();
 
             primaryStage.setTitle("HealthSync - Login");
             primaryStage.setScene(new Scene(root));
+
+            primaryStage.setWidth(1000);
+            primaryStage.setHeight(700);
+            primaryStage.setMinWidth(850);
+            primaryStage.setMinHeight(600);
+
+            // ✅ Make sure window starts centered on screen
+            primaryStage.centerOnScreen();
+
             primaryStage.show();
 
         } catch (Exception e) {
