@@ -46,7 +46,8 @@
                     onAction="#handleManageRooms"
                     style="-fx-background-color: #1976d2; -fx-text-fill: white;"/>
 
-            <Button fx:id="btnViewBills" text="View Bills"
+
+            <Button fx:id="btnViewBills" text="Manage Bills"
                     onAction="#handleViewBills"
                     style="-fx-background-color: #1976d2; -fx-text-fill: white;"/>
 

@@ -34,23 +34,15 @@
             <Label text="Please select an action:"
                    style="-fx-font-size: 14px;"/>
 
-            <Button fx:id="btnRegisterPatient" text="Register Patient"
-                    onAction="#handleRegisterPatient"
-                    style="-fx-background-color: #1976d2; -fx-text-fill: white;"/>
-
             <Button fx:id="btnAssignRoom" text="Assign Room"
                     onAction="#handleAssignRoom"
                     style="-fx-background-color: #1976d2; -fx-text-fill: white;"/>
 
-            <Button fx:id="btnCreateBill" text="Create Bill"
+            <Button fx:id="btnCreateBill" text="Manage Bills"
                     onAction="#handleCreateBill"
                     style="-fx-background-color: #1976d2; -fx-text-fill: white;"/>
 
-            <Button fx:id="btnViewBills" text="View Bills"
-                    onAction="#handleViewBills"
-                    style="-fx-background-color: #1976d2; -fx-text-fill: white;"/>
-
-            <Button fx:id="btnViewReports" text="View Reports"
+            <Button fx:id="btnViewReports" text="Manage Reports"
                     onAction="#handleViewReports"
                     style="-fx-background-color: #1976d2; -fx-text-fill: white;"/>
 

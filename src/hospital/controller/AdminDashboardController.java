@@ -35,13 +35,13 @@ public class AdminDashboardController {
     @FXML
     private void handleViewBills() {
         Stage stage = (Stage) btnViewBills.getScene().getWindow();
-        SceneUtil.switchScene(stage, "ViewBills.fxml", "View Bills");
+        SceneUtil.switchScene(stage, "ManageBills.fxml", "Manage Bills");
     }
 
     @FXML
     private void handleViewReports() {
         Stage stage = (Stage) btnViewReports.getScene().getWindow();
-        SceneUtil.switchScene(stage, "ViewReports.fxml", "View Reports");
+        SceneUtil.switchScene(stage, "ManageReports.fxml", "View Reports");
     }
 
     @FXML

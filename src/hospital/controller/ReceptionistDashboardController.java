@@ -7,12 +7,6 @@ import javafx.stage.Stage;
 public class ReceptionistDashboardController {
 
     @FXML
-    private void handleRegisterPatient() {
-        Stage stage = SceneUtil.getCurrentStageFromEvent();
-        SceneUtil.switchScene(stage, "RegisterPatient.fxml", "Register Patient");
-    }
-
-    @FXML
     private void handleAssignRoom() {
         Stage stage = SceneUtil.getCurrentStageFromEvent();
         SceneUtil.switchScene(stage, "AssignRoom.fxml", "Assign Room");
@@ -21,19 +15,13 @@ public class ReceptionistDashboardController {
     @FXML
     private void handleCreateBill() {
         Stage stage = SceneUtil.getCurrentStageFromEvent();
-        SceneUtil.switchScene(stage, "CreateBill.fxml", "Create Bill");
-    }
-
-    @FXML
-    private void handleViewBills() {
-        Stage stage = SceneUtil.getCurrentStageFromEvent();
-        SceneUtil.switchScene(stage, "ViewBills.fxml", "View Bills");
+        SceneUtil.switchScene(stage, "ManageBills.fxml", "Manage Bills");
     }
 
     @FXML
     private void handleViewReports() {
         Stage stage = SceneUtil.getCurrentStageFromEvent();
-        SceneUtil.switchScene(stage, "ViewReports.fxml", "View Reports");
+        SceneUtil.switchScene(stage, "ManageReports.fxml", "Manage Reports");
     }
 
     @FXML

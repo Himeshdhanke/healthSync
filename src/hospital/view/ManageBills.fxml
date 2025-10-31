@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="hospital.controller.ManageBillsController"
+            prefWidth="1000" prefHeight="600"
+            style="-fx-background-color: #f4f6f8;">
+
+    <!-- Top Header -->
+    <top>
+        <HBox spacing="10" style="-fx-background-color: #0077b6; -fx-padding: 15;">
+            <Label text="💰 Manage Bills"
+                   style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: white;" />
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Button text="⬅ Back"
+                    style="-fx-background-color: white; -fx-text-fill: #0077b6; -fx-font-weight: bold;"
+                    onAction="#goBack"/>
+        </HBox>
+    </top>
+
+    <!-- Center Table -->
+    <center>
+        <VBox spacing="20">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <TableView fx:id="billTable" prefHeight="350">
+                <columns>
+                    <TableColumn fx:id="colBillId" text="Bill ID" prefWidth="80"/>
+                    <TableColumn fx:id="colPatientName" text="Patient Name" prefWidth="180"/>
+                    <TableColumn fx:id="colAmount" text="Amount" prefWidth="120"/>
+                    <TableColumn fx:id="colBillDate" text="Bill Date" prefWidth="150"/>
+                    <TableColumn fx:id="colStatus" text="Status" prefWidth="120"/>
+                </columns>
+            </TableView>
+
+            <HBox spacing="10">
+                <Button text="➕ Add" style="-fx-background-color: #0077b6; -fx-text-fill: white;"
+                        onAction="#handleAdd"/>
+                <Button text="✏ Edit" style="-fx-background-color: #00b4d8; -fx-text-fill: white;"
+                        onAction="#handleEdit"/>
+                <Button text="💾 Update" style="-fx-background-color: #0096c7; -fx-text-fill: white;"
+                        onAction="#handleUpdate"/>
+                <Button text="🗑 Delete" style="-fx-background-color: #d62828; -fx-text-fill: white;"
+                        onAction="#handleDelete"/>
+                <Button text="🔄 Refresh" style="-fx-background-color: #90e0ef; -fx-text-fill: black;"
+                        onAction="#loadBills"/>
+            </HBox>
+        </VBox>
+    </center>
+
+    <!-- Right Form Section -->
+    <right>
+        <VBox spacing="15" prefWidth="300" style="-fx-background-color: #ffffff; -fx-border-color: #ccc;">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <Label text="Add / Edit Bill" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+            <Label text="Patient ID:"/>
+            <TextField fx:id="txtPatientId" promptText="Enter patient ID"/>
+
+            <Label text="Patient Name:"/>
+            <TextField fx:id="txtPatientName" promptText="Enter patient name"/>
+
+            <Label text="Amount:"/>
+            <TextField fx:id="txtAmount" promptText="Enter amount"/>
+
+            <Label text="Bill Date:"/>
+            <DatePicker fx:id="txtBillDate"/>
+
+            <Label text="Status:"/>
+            <TextField fx:id="txtStatus" promptText="Paid / Unpaid"/>
+
+            <Button text="💾 Save Bill"
+                    style="-fx-background-color: #0077b6; -fx-text-fill: white; -fx-font-weight: bold;"
+                    onAction="#handleAdd"/>
+        </VBox>
+    </right>
+
+</BorderPane>
